@@ -1,7 +1,7 @@
 {
-  "name": "kanban-board",
+  "name": "todo-app",
   "version": "1.0.0",
-  "description": "Kanban-Board mit Drag & Drop – Vanilla JavaScript, ohne Abhängigkeiten",
+  "description": "To-do-App mit Schnelleingabe in natürlicher Sprache – Vanilla JavaScript, ohne Abhängigkeiten",
   "type": "module",
   "private": true,
   "scripts": {

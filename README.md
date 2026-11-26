@@ -1,62 +1,54 @@
-# 🗂️ Kanban-Board
+# ✅ To-do
 
-[![CI](https://github.com/Surhay276/kanban-board/actions/workflows/ci.yml/badge.svg)](https://github.com/Surhay276/kanban-board/actions/workflows/ci.yml)
+[![CI](https://github.com/Surhay276/todo-app/actions/workflows/ci.yml/badge.svg)](https://github.com/Surhay276/todo-app/actions/workflows/ci.yml)
 ![Vanilla JS](https://img.shields.io/badge/JavaScript-ES2022-f7df1e?logo=javascript&logoColor=black)
 ![Keine Abhängigkeiten](https://img.shields.io/badge/dependencies-0-brightgreen)
 
-Ein schlankes Kanban-Board zur Aufgabenverwaltung – komplett ohne Framework, nur mit HTML, CSS und modernem JavaScript.
+Eine To-do-App im Stil von TickTick – ohne Framework, nur HTML, CSS und modernes JavaScript.
 
-**▶ Live-Demo: [surhay276.github.io/kanban-board](https://surhay276.github.io/kanban-board/)**
+**▶ Live-Demo: [surhay276.github.io/todo-app](https://surhay276.github.io/todo-app/)**
 
 ## Funktionen
 
-- **WIP-Limit** für „In Arbeit“ (max. 3 Aufgaben) mit Segmentanzeige – Warnung beim Erreichen/Überschreiten
-- **Mobil optimiert**: Spalten als Tabs, schwebender „Neue Aufgabe“-Button, Dialog als Bottom-Sheet, 44-px-Touch-Ziele
-- **Rückgängig** nach Löschen direkt aus der Benachrichtigung
-- **Drag & Drop** zwischen und innerhalb der Spalten (native HTML5-API, Einfügeposition anhand der Mausposition)
-- **Tastaturbedienung**: Karte fokussieren → `←`/`→` verschiebt, `Enter` bearbeitet, `Entf` löscht
-- Aufgaben mit **Priorität**, **Beschreibung** und **Fälligkeitsdatum** – überfällige Aufgaben werden markiert
-- **Suche & Filter** nach Text und Priorität
-- **Fortschrittsanzeige** und Kennzahlen (gesamt / erledigt / überfällig)
-- **Persistenz** im `localStorage`, **JSON-Export und -Import** zum Sichern
-- **Dark Mode** (folgt dem System, manuell umschaltbar), responsives Layout
+- **Schnelleingabe in natürlicher Sprache**: `Hausarbeit abgeben morgen !hoch #Uni` → Titel, Datum, Priorität und Liste werden erkannt und live als Chips angezeigt. Versteht `heute`, `morgen`, `übermorgen`, Wochentage, `nächste Woche`, `in 3 Tagen`, `in 2 Wochen`, `24.12.`, `15.01.2027`, `!hoch|!mittel|!niedrig` (oder `!3/!2/!1`) und `#Liste`.
+- **Intelligente Ansichten**: Heute (inkl. Überfälligem), Nächste 7 Tage, Alle Aufgaben, Erledigt – plus eigene **Listen**
+- **Gruppierung nach Fälligkeit**: Überfällig · Heute · Morgen · Diese Woche · Später · Ohne Datum; Überfälliges mit einem Klick **auf heute verschieben**
+- **Prioritäten** als farbige Checkbox (wie bei TickTick), Sortierung nach Datum und Priorität
+- **Detailansicht** mit Schnellwahl für Datum, Priorität, Liste und Notizen – speichert automatisch
+- **Tagesfortschritt**, Suche, **Rückgängig** nach Abhaken/Löschen, Tastenkürzel `n` für neue Aufgabe
+- **Mobil optimiert**: Listen als Schublade, schwebender Button, Schnelleingabe und Details als Bottom-Sheet, 44-px-Touch-Ziele
+- Speicherung im `localStorage`, **JSON-Export/-Import**, heller Standard-Modus und Dark Mode
 
 ## Technische Umsetzung
 
 | Bereich | Umsetzung |
 |---|---|
-| Architektur | Trennung von **Logik** (`js/board.js`) und **Darstellung** (`js/app.js`) |
-| Zustand | Immutable Updates – jede Aktion liefert einen neuen Zustand, danach `save()` + `render()` |
-| Sicherheit | Ausgabe nur über `textContent` (kein `innerHTML` mit Nutzerdaten → kein XSS); Importe werden validiert und bereinigt |
-| Tests | 13 Unit-Tests mit dem eingebauten Node-Test-Runner (`node:test`), keine Abhängigkeiten |
-| CI/CD | GitHub Actions führt die Tests bei jedem Push aus; Deployment über GitHub Pages |
-| Design | Tokens angelehnt an **Untitled UI** (Graustufen, Shadows, Fokusring), SVG-Icons statt Emojis, Schriften **lokal gehostet** (DSGVO – kein Google-Fonts-Abruf) |
-| Responsive | Mobile-first-Breakpoints (≤ 767 px / ≤ 1100 px), `safe-area-insets`, `pointer: coarse`-Anpassungen |
-| Barrierefreiheit | Semantisches HTML, `<dialog>`, ARIA-Labels, sichtbarer Fokus, `prefers-reduced-motion` |
+| Architektur | Logik (`js/todo.js`) strikt getrennt von der Darstellung (`js/app.js`) |
+| Zustand | Immutable Updates – jede Aktion liefert einen neuen Zustand, danach `save()` + `render()`; Rückgängig = vorheriger Zustand |
+| Parser | Regex-basierte Erkennung deutscher Datumsangaben inkl. Jahreswechsel, ungültiger Daten (31.02.) und „nächster Wochentag“ |
+| Sicherheit | Ausgabe ausschließlich über `textContent` (kein XSS); Importe werden validiert und bereinigt |
+| Tests | 13 Unit-Tests mit `node:test` – Ansichten, Gruppierung, Parser, Import |
+| Design | Untitled-UI-Tokens, Aufbau nach TickTick (Recherche über Mobbin), SVG-Icons, Schriften lokal gehostet (DSGVO) |
+| Barrierefreiheit | Semantische Buttons, `aria-pressed`/`aria-current`, sichtbarer Fokus, `prefers-reduced-motion` |
+| CI/CD | GitHub Actions testet jeden Push, Deployment über GitHub Pages |
 
 ```
-kanban-board/
-├── index.html          # Markup & Dialog
-├── css/style.css       # Theme-Variablen, Layout, Dark Mode
-├── js/board.js         # reine Geschäftslogik (testbar ohne DOM)
-├── js/app.js           # Rendering, Events, Drag & Drop, Persistenz
-└── tests/board.test.js # Unit-Tests
+todo-app/
+├── index.html         # Layout, Icons, Detail-Dialog
+├── css/style.css      # Tokens, Layout, mobile Sheets
+├── js/todo.js         # Logik: Aufgaben, Ansichten, Gruppierung, Parser
+├── js/app.js          # Rendering, Events, Persistenz
+└── tests/todo.test.js # Unit-Tests
 ```
 
 ## Lokal starten
 
 ```bash
-git clone https://github.com/Surhay276/kanban-board.git
-cd kanban-board
-npm start      # startet einen statischen Server (oder index.html über einen beliebigen Webserver öffnen)
-npm test       # Unit-Tests ausführen (Node ≥ 20)
+git clone https://github.com/Surhay276/todo-app.git
+cd todo-app
+npm start   # statischer Server
+npm test    # Unit-Tests (Node ≥ 20)
 ```
-
-## Mögliche Erweiterungen
-
-- Mehrere Boards und frei definierbare Spalten
-- Synchronisation über ein Backend (z. B. REST-API mit Spring Boot oder Supabase)
-- Undo/Redo über eine Historie der Zustände
 
 ---
 
