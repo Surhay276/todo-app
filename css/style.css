@@ -354,7 +354,8 @@ textarea.input { resize: vertical; min-height: 96px; }
   }
   .quick-add:focus-within { box-shadow: var(--shadow-xl); border-color: var(--border); }
   .qa-open .quick-add { transform: none; }
-  .qa-open .quick-add .qa-chips, .qa-open .quick-add .qa-help { display: flex; }
+  .qa-open .quick-add .qa-chips { display: flex; }
+  .qa-open .quick-add .qa-help { display: block; }
   .qa-open .fab { display: none !important; }
   .qa-row { padding: 10px 10px 6px 16px; }
 
