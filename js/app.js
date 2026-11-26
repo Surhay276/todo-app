@@ -2,7 +2,7 @@ import {
   SMART_VIEWS, createState, addTask, updateTask, toggleTask, deleteTask, postponeOverdue, addList,
   tasksForView, completedForView, groupTasks, viewCounts, parseQuickAdd, sanitizeState, search,
   todayISO, addDays, daysBetween, sortTasks,
-} from './todo.js?v=6';
+} from './todo.js?v=9';
 
 const STORAGE_KEY = 'todo:v1';
 const THEME_KEY = 'todo:theme';
@@ -324,15 +324,20 @@ qa.addEventListener('submit', (e) => {
 
 function focusQuickAdd() {
   if (mobile.matches) document.body.classList.add('qa-open');
+  syncScrollLock();
   qaInput.focus();
+}
+function closeQuickAdd() {
+  document.body.classList.remove('qa-open');
+  syncScrollLock();
 }
 $('#fab').addEventListener('click', focusQuickAdd);
 document.addEventListener('pointerdown', (e) => {
   if (document.body.classList.contains('qa-open') && !qa.contains(e.target) && e.target !== $('#fab') && !$('#fab').contains(e.target)) {
-    document.body.classList.remove('qa-open');
+    closeQuickAdd();
   }
 });
-qaInput.addEventListener('keydown', (e) => { if (e.key === 'Escape') { qaInput.blur(); document.body.classList.remove('qa-open'); } });
+qaInput.addEventListener('keydown', (e) => { if (e.key === 'Escape') { qaInput.blur(); closeQuickAdd(); } });
 
 // ---------- Detailansicht ----------
 const detail = $('#detail');
@@ -342,6 +347,7 @@ function openDetail(id) {
   $('#detail-error').textContent = '';
   fillDetail();
   detail.showModal();
+  syncScrollLock();
   requestAnimationFrame(() => autoGrow($('#detail-title'))); // Höhe erst messen, wenn der Dialog sichtbar ist
 }
 
@@ -403,17 +409,27 @@ detail.addEventListener('close', () => {
   const notes = $('#detail-notes').value;
   if (task && (title.trim() !== task.title || notes.trim() !== task.notes) && title.trim()) patchTask({ title, notes });
   openTaskId = null;
+  syncScrollLock();
 });
 detail.addEventListener('click', (e) => { if (e.target === detail) detail.close(); }); // Klick auf Hintergrund
 
 // ---------- Seitenleiste mobil ----------
+/** Sperrt das Scrollen der Seite im Hintergrund (Menü, Detail-Sheet, Schnelleingabe). */
+function syncScrollLock() {
+  const locked = mobile.matches && (document.body.classList.contains('sidebar-open')
+    || document.body.classList.contains('qa-open') || detail.open);
+  document.documentElement.classList.toggle('scroll-locked', locked);
+}
+
 function openSidebar() {
   document.body.classList.add('sidebar-open');
+  syncScrollLock();
   $('#scrim').hidden = false;
   $('#open-sidebar').setAttribute('aria-expanded', 'true');
 }
 function closeSidebar() {
   document.body.classList.remove('sidebar-open');
+  requestAnimationFrame(syncScrollLock);
   $('#scrim').hidden = true;
   $('#open-sidebar').setAttribute('aria-expanded', 'false');
 }

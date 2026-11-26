@@ -60,6 +60,9 @@
 @media (pointer: coarse) { :root { --tap: 44px; } }
 
 /* ---------- Basis ---------- */
+/* Hintergrund nicht mitscrollen, solange Menü, Details oder Schnelleingabe offen sind */
+html.scroll-locked, html.scroll-locked body { overflow: hidden; overscroll-behavior: none; }
+.detail, .quick-add { overscroll-behavior: contain; }
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; font-family: var(--font); font-size: 16px; line-height: 1.5; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
@@ -329,6 +332,8 @@ textarea.input { resize: vertical; min-height: 96px; }
     box-shadow: var(--shadow-xl);
   }
   .sidebar-open .sidebar { transform: none; }
+  .sidebar { height: 100dvh; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+  .sidebar-open .scrim { touch-action: none; }
   .sidebar-open .scrim { display: block; position: fixed; inset: 0; z-index: 35; background: rgb(12 17 29 / .4); }
 
   .main { padding: 12px 16px 24px; }
