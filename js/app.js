@@ -2,7 +2,7 @@ import {
   SMART_VIEWS, createState, addTask, updateTask, toggleTask, deleteTask, postponeOverdue, addList,
   tasksForView, completedForView, groupTasks, viewCounts, parseQuickAdd, sanitizeState, search,
   todayISO, addDays, daysBetween, sortTasks,
-} from './todo.js?v=5';
+} from './todo.js?v=6';
 
 const STORAGE_KEY = 'todo:v1';
 const THEME_KEY = 'todo:theme';
@@ -342,6 +342,7 @@ function openDetail(id) {
   $('#detail-error').textContent = '';
   fillDetail();
   detail.showModal();
+  requestAnimationFrame(() => autoGrow($('#detail-title'))); // Höhe erst messen, wenn der Dialog sichtbar ist
 }
 
 function fillDetail() {

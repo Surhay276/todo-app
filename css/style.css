@@ -167,6 +167,7 @@ h1 { font-size: 28px; font-weight: 700; letter-spacing: -.025em; line-height: 1.
 .qa-plus { color: var(--primary); display: grid; }
 .qa-input { flex: 1; min-width: 0; min-height: 40px; border: 0; background: none; font: inherit; font-size: 16px; color: var(--text); outline: none; }
 .qa-input::placeholder { color: var(--text-3); }
+.qa-input:focus-visible { box-shadow: none; }
 .qa-submit {
   display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%;
   background: var(--surface-2); color: var(--text-3); cursor: pointer; transition: background-color .15s, color .15s;
@@ -188,7 +189,7 @@ h1 { font-size: 28px; font-weight: 700; letter-spacing: -.025em; line-height: 1.
   transition: background-color .15s, border-color .15s, color .15s;
 }
 .chip .icon { width: 15px; height: 15px; color: var(--text-3); }
-.chip select { appearance: none; border: 0; background: none; font: inherit; color: inherit; padding: 0; cursor: pointer; outline: none; }
+.chip select { field-sizing: content; max-width: 160px; appearance: none; border: 0; background: none; font: inherit; color: inherit; padding: 0; cursor: pointer; outline: none; }
 .chip input[type="date"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
 .chip input[type="date"]::-webkit-calendar-picker-indicator { position: absolute; inset: 0; width: 100%; height: 100%; cursor: pointer; }
 .chip:focus-within { box-shadow: var(--ring); border-color: var(--primary); }
