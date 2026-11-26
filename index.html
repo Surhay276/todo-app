@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#F9FAFB" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0C111D" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F9FAFB">
   <title>Kanban-Board · Surhay Yilmaz</title>
   <meta name="description" content="Kanban-Board mit Drag & Drop, WIP-Limit, Filter, Dark Mode und JSON-Export – gebaut mit Vanilla JavaScript.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237F56D9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='3' width='18' height='18' rx='3'/><path d='M9 3v18M15 3v18'/></svg>">
   <link rel="preload" href="fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=4">
   <script>
-    // Theme vor dem ersten Rendern setzen → kein Aufblitzen
-    try { document.documentElement.dataset.theme = localStorage.getItem('kanban-board:theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch { /* ignorieren */ }
+    // Theme vor dem ersten Rendern setzen → kein Aufblitzen. Standard: hell; Dark Mode nur per Umschalter.
+    document.documentElement.dataset.theme = 'light';
+    try { if (localStorage.getItem('kanban-board:theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch { /* ignorieren */ }
   </script>
 </head>
 <body>
@@ -136,6 +136,6 @@
     <a href="https://github.com/Surhay276/kanban-board">Quellcode auf GitHub</a>
   </footer>
 
-  <script type="module" src="js/app.js?v=3"></script>
+  <script type="module" src="js/app.js?v=4"></script>
 </body>
 </html>

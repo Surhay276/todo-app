@@ -1,7 +1,7 @@
 import {
   COLUMNS, addTask, updateTask, deleteTask, moveTask, shiftTask,
   filterTasks, groupByColumn, isOverdue, getStats, sanitizeState, createState, wipStatus,
-} from './board.js?v=3';
+} from './board.js?v=4';
 
 const STORAGE_KEY = 'kanban-board:v1';
 const THEME_KEY = 'kanban-board:theme';

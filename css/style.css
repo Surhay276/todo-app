@@ -478,6 +478,22 @@ kbd { font-family: var(--mono); font-size: 11px; background: var(--surface); bor
 }
 @keyframes sheet { from { transform: translateY(100%); } }
 
+/* Sehr schmale Displays (z. B. Galaxy Z Fold, Außendisplay ≈ 280 px) */
+@media (max-width: 360px) {
+  .app-header { padding: 12px 12px 10px; }
+  .brand-mark { width: 36px; height: 36px; }
+  .metric { padding: 6px 8px; }
+  .metric dd { font-size: 16px; }
+  .toolbar { padding: 0 12px 10px; }
+  .tabs { margin: 0 12px 10px; }
+  .tab { font-size: 12px; padding: 0 2px; gap: 4px; }
+  .tab .count { display: none; }
+  .board { padding: 0 12px; }
+  .column { padding: 8px; }
+  .card { padding: 12px 12px 6px; }
+  .btn-new { right: 12px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
