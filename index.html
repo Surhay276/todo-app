@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kanban-Board · Surhay Yilmaz</title>
+  <meta name="description" content="Kanban-Board mit Drag & Drop, Filter, Dark Mode und JSON-Export – gebaut mit Vanilla JavaScript.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗂️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">🗂️</span>
+      <div>
+        <h1>Kanban-Board</h1>
+        <p class="subtitle">Drag &amp; Drop · LocalStorage · Vanilla JS</p>
+      </div>
+    </div>
+    <div class="stats" aria-live="polite">
+      <div class="stat"><span id="stat-total">0</span><small>Gesamt</small></div>
+      <div class="stat"><span id="stat-done">0</span><small>Erledigt</small></div>
+      <div class="stat warn"><span id="stat-overdue">0</span><small>Überfällig</small></div>
+      <div class="progress" aria-label="Fortschritt">
+        <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+        <small id="progress-label">0 %</small>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toolbar" aria-label="Werkzeugleiste">
+    <input id="search" type="search" placeholder="Aufgaben durchsuchen …" aria-label="Aufgaben durchsuchen">
+    <select id="priority-filter" aria-label="Nach Priorität filtern">
+      <option value="alle">Alle Prioritäten</option>
+      <option value="hoch">Hoch</option>
+      <option value="mittel">Mittel</option>
+      <option value="niedrig">Niedrig</option>
+    </select>
+    <button id="new-task-btn" class="btn primary">+ Neue Aufgabe</button>
+    <div class="spacer"></div>
+    <button id="export-btn" class="btn">Export</button>
+    <label class="btn" for="import-input">Import</label>
+    <input id="import-input" type="file" accept="application/json" hidden>
+    <button id="reset-btn" class="btn ghost" title="Demo-Daten wiederherstellen">Zurücksetzen</button>
+    <button id="theme-btn" class="btn ghost" aria-label="Farbschema wechseln">🌙</button>
+  </nav>
+
+  <main id="board" class="board"></main>
+
+  <p class="hint">Tipp: Karten per Drag &amp; Drop verschieben – oder fokussieren und mit <kbd>←</kbd> <kbd>→</kbd> zwischen Spalten bewegen, <kbd>Enter</kbd> bearbeitet.</p>
+
+  <dialog id="task-dialog" aria-labelledby="dialog-title">
+    <form id="task-form" novalidate>
+      <h2 id="dialog-title">Neue Aufgabe</h2>
+      <label>Titel*
+        <input name="title" maxlength="120" required autocomplete="off">
+      </label>
+      <label>Beschreibung
+        <textarea name="description" rows="3" maxlength="1000"></textarea>
+      </label>
+      <div class="row">
+        <label>Priorität
+          <select name="priority">
+            <option value="niedrig">Niedrig</option>
+            <option value="mittel" selected>Mittel</option>
+            <option value="hoch">Hoch</option>
+          </select>
+        </label>
+        <label>Fällig am
+          <input name="due" type="date">
+        </label>
+      </div>
+      <p id="form-error" class="error" role="alert"></p>
+      <div class="dialog-actions">
+        <button type="button" id="cancel-btn" class="btn ghost">Abbrechen</button>
+        <button type="submit" class="btn primary">Speichern</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <footer class="footer">
+    Gebaut von <a href="https://github.com/Surhay276">Surhay Yilmaz</a> ·
+    <a href="https://github.com/Surhay276/kanban-board">Quellcode auf GitHub</a>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
