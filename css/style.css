@@ -454,6 +454,8 @@ kbd { font-family: var(--mono); font-size: 11px; background: var(--surface); bor
     -webkit-tap-highlight-color: transparent;
   }
   .tab[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
+  .tab { white-space: nowrap; }
+  .tab .dot { display: none; }
   .tab .count { padding: 0 6px; line-height: 18px; }
 
   .board { grid-template-columns: 1fr; padding: 0 16px; }
