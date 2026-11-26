@@ -1,0 +1,28 @@
+# Umgebungsvariablen / Secrets – niemals committen
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Lokale Claude-/Editor-Einstellungen
+.claude/settings.local.json
+.vscode/
+.idea/
+
+# Abhängigkeiten, Builds, Caches
+node_modules/
+.npm/
+.cache/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+
+# Betriebssystem
+.DS_Store
+Thumbs.db
