@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   createState, addTask, updateTask, deleteTask, moveTask, shiftTask,
-  filterTasks, groupByColumn, isOverdue, getStats, sanitizeState, validateTaskInput,
+  filterTasks, groupByColumn, isOverdue, getStats, sanitizeState, validateTaskInput, wipStatus,
 } from '../js/board.js';
 
 const titles = (state, column) => state.tasks.filter((t) => t.column === column).map((t) => t.title);
@@ -113,4 +113,13 @@ test('sanitizeState verwirft ungültige Einträge aus Importen', () => {
   });
   assert.deepEqual(clean.tasks.map((t) => t.id), ['1']);
   assert.deepEqual(sanitizeState(null).tasks, []);
+});
+
+test('wipStatus meldet Erreichen und Überschreiten des WIP-Limits', () => {
+  let s = createState();
+  assert.equal(wipStatus(s, 'todo'), null);
+  for (const title of ['1', '2', '3']) s = addTask(s, { title }, { column: 'doing' });
+  assert.deepEqual(wipStatus(s, 'doing'), { count: 3, limit: 3, atLimit: true, exceeded: false });
+  s = addTask(s, { title: '4' }, { column: 'doing' });
+  assert.equal(wipStatus(s, 'doing').exceeded, true);
 });

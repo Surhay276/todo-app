@@ -12,6 +12,9 @@ export const COLUMNS = Object.freeze([
 
 export const PRIORITIES = Object.freeze(['niedrig', 'mittel', 'hoch']);
 
+/** Work-in-Progress-Limits: begrenzen, wie viele Aufgaben gleichzeitig in Arbeit sein sollen. */
+export const WIP_LIMITS = Object.freeze({ doing: 3 });
+
 const COLUMN_IDS = COLUMNS.map((c) => c.id);
 const MAX_TITLE = 120;
 const MAX_DESC = 1000;
@@ -133,4 +136,12 @@ export function sanitizeState(raw) {
     }
   }
   return createState(tasks);
+}
+
+/** Status des WIP-Limits einer Spalte (null, wenn die Spalte kein Limit hat). */
+export function wipStatus(state, column) {
+  const limit = WIP_LIMITS[column];
+  if (!limit) return null;
+  const count = state.tasks.filter((t) => t.column === column).length;
+  return { count, limit, atLimit: count === limit, exceeded: count > limit };
 }

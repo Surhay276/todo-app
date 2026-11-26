@@ -10,6 +10,9 @@ Ein schlankes Kanban-Board zur Aufgabenverwaltung – komplett ohne Framework, n
 
 ## Funktionen
 
+- **WIP-Limit** für „In Arbeit“ (max. 3 Aufgaben) mit Segmentanzeige – Warnung beim Erreichen/Überschreiten
+- **Mobil optimiert**: Spalten als Tabs, schwebender „Neue Aufgabe“-Button, Dialog als Bottom-Sheet, 44-px-Touch-Ziele
+- **Rückgängig** nach Löschen direkt aus der Benachrichtigung
 - **Drag & Drop** zwischen und innerhalb der Spalten (native HTML5-API, Einfügeposition anhand der Mausposition)
 - **Tastaturbedienung**: Karte fokussieren → `←`/`→` verschiebt, `Enter` bearbeitet, `Entf` löscht
 - Aufgaben mit **Priorität**, **Beschreibung** und **Fälligkeitsdatum** – überfällige Aufgaben werden markiert
@@ -25,8 +28,10 @@ Ein schlankes Kanban-Board zur Aufgabenverwaltung – komplett ohne Framework, n
 | Architektur | Trennung von **Logik** (`js/board.js`) und **Darstellung** (`js/app.js`) |
 | Zustand | Immutable Updates – jede Aktion liefert einen neuen Zustand, danach `save()` + `render()` |
 | Sicherheit | Ausgabe nur über `textContent` (kein `innerHTML` mit Nutzerdaten → kein XSS); Importe werden validiert und bereinigt |
-| Tests | 12 Unit-Tests mit dem eingebauten Node-Test-Runner (`node:test`), keine Abhängigkeiten |
+| Tests | 13 Unit-Tests mit dem eingebauten Node-Test-Runner (`node:test`), keine Abhängigkeiten |
 | CI/CD | GitHub Actions führt die Tests bei jedem Push aus; Deployment über GitHub Pages |
+| Design | Tokens angelehnt an **Untitled UI** (Graustufen, Shadows, Fokusring), SVG-Icons statt Emojis, Schriften **lokal gehostet** (DSGVO – kein Google-Fonts-Abruf) |
+| Responsive | Mobile-first-Breakpoints (≤ 767 px / ≤ 1100 px), `safe-area-insets`, `pointer: coarse`-Anpassungen |
 | Barrierefreiheit | Semantisches HTML, `<dialog>`, ARIA-Labels, sichtbarer Fokus, `prefers-reduced-motion` |
 
 ```
