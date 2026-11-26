@@ -8,6 +8,6 @@
     "start": "npx --yes serve .",
     "test": "node --test tests/*.test.js"
   },
-  "author": "Surhay Yilmaz",
+  "author": "Hüseyin Surhay Yilmaz",
   "license": "MIT"
 }

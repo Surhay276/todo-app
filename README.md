@@ -52,4 +52,4 @@ npm test    # Unit-Tests (Node ≥ 20)
 
 ---
 
-Entwickelt von **Surhay Yilmaz** · Lizenz: MIT
+Entwickelt von **Hüseyin Surhay Yilmaz** · Lizenz: MIT
