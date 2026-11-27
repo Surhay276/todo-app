@@ -48,6 +48,7 @@ Eine To-do-App im Stil von TickTick – ohne Framework, nur HTML, CSS und modern
 | Design | Untitled-UI-Tokens, Aufbau nach TickTick (Recherche über Mobbin), SVG-Icons, Schriften lokal gehostet (DSGVO) |
 | Barrierefreiheit | Semantische Buttons, `aria-pressed`/`aria-current`, sichtbarer Fokus, `prefers-reduced-motion` |
 | CI/CD | GitHub Actions testet jeden Push, Deployment über GitHub Pages |
+| Aktualität | Die Seite fragt beim Öffnen `version.json` am Cache vorbei ab und lädt sich bei einer neueren Version einmal frisch – so sieht niemand eine veraltete Version (`node scripts/bump-version.mjs` zählt alle Versionsangaben hoch) |
 
 ```
 todo-app/
